@@ -20,6 +20,8 @@ dd.update(three=3)
 print(dd)  #{'one': 1, 'two': [2, 2], 'three': 3}， 继承自dict中的update方法也不会使用自己定义的__setitem__方法
 
 
+#要点：不只实例内部的调用有这个问题，内置类型的方法调用的其他类的方法，如果被覆盖了，也不会被调用。
+#dict.update 方法会忽略，AnswerDict.__getitem__ 方法
 class AnswerDict(dict):
     def __getitem__(self, key):
         return 42
