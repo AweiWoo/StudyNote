@@ -6,6 +6,7 @@ from array import array
 import reprlib 
 import math
 import itertools
+import numbers
 
 class Vector:
     """
@@ -33,6 +34,9 @@ class Vector:
     def __iter__(self):
         return iter(self._components)
 
+    def __len__(self):
+        return len(self._components)
+
     def __abs__(self):
         return math.sqrt(sum(x * x for x in self))
 
@@ -40,7 +44,10 @@ class Vector:
         return str(tuple(self))
 
     def __eq__(self, other):
-        return len(self) == len(other) and all(a == b for a, b in zip(self, other))
+        if isinstance(other, Vector):
+            return len(self) == len(other) and all(a == b for a, b in zip(self, other))
+        else:
+            return NotImplemented
 
     def __neg__(self):
         return Vector(-x for x in self)
@@ -57,4 +64,23 @@ class Vector:
             return NotImplemented
     
     def __radd__(self, other):
-        return self + other  #直接委托给__add__, 因为使用了 +
+        return self + other  #直接委托给__add__, 因为使用了 
+
+    def __mul__(self, scalar):
+        if isinstance(scalar, numbers.Real): #类型判断，白鹅类型
+            return Vector(n * scalar for n in self)
+        else:
+            return NotImplemented
+            #返回 NotImplemented，Python会尝试在 scalar 操作数上调用 __rmul__ 方法
+
+    def __rmul__(self, scalar):
+        return self * scalar
+
+    def __matmul__(self, other):
+        try:
+            return sum(a * b for a, b in zip(self, other))
+        except TypeError:
+            return NotImplemented
+
+    def __rmatmul__(self, other):
+        return self * other
