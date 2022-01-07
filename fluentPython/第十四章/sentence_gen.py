@@ -18,5 +18,5 @@ class Sentence:
 
     def _iter__(self):
         for word in self.words:
-            yield word
-        return 
+            yield word           #产出当前的 word
+        return     #这个 return 语句不是必要的

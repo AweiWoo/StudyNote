@@ -16,4 +16,5 @@ class Sentence:
         return 'Sentence(%s)' % reprlib.repr(self.text)
 
     def _iter__(self):
+        #已经不是生成器函数了，没有yeild关键字了，而是使用了生成器表达式
         return (match.group() for match in RE_WORD.finditer(self.text))
