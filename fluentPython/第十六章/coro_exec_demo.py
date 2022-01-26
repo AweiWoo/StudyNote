@@ -14,7 +14,7 @@
 -> coroutine received: 22
 >>> exc_coro.close() 
 >>> from inspect import getgeneratorstate
->>> getgeneratorstate(exc_coro)
+>>> getgeneratorstate(exc_coro)  #
 'GEN_CLOSED'
 
 把DemoException异常传入demo_exc_handling协程，他会处理，然后继续
@@ -31,6 +31,19 @@
 >>> exc_coro.send(22) 
 -> coroutine received: 22
 >>>
+
+如果无法处理传入的异常，协程会终止
+>>> exc_coro = demo_exc_handling()
+>>> next(exc_coro)
+-> coroutine started
+>>> exc_coro.send(11)
+-> coroutine received: 11
+>>> exc_coro.throw(ZeroDivisionError)
+Traceback (most recent call last):
+...
+ZeroDivisionError
+>>> getgeneratorstate(exc_coro)
+'GEN_CLOS
 """
 
 class DemoException(Exception):
