@@ -1,5 +1,5 @@
 { "Schedule":
-    { "conferences": [{"serial": 115 },{"serial": 116 }],
+    { "conferences": [{"serial": 115 }],
     "events": [
     { "serial": 34505,
     "name": "Why Schools Don't Use Open Source to Teach Programming",
