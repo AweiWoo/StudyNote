@@ -1,6 +1,3 @@
-from wsgiref import headers
-
-
 #!/usr/bin/python
 # -*- coding:UTF-8 -*-
 # author: wwu
@@ -42,7 +39,7 @@ class DbRecord(Record):   #Record的扩展类
     def fetch(cls, ident): #类方法，在子类中易于定制它的行为
         db = cls.get_db()
         try:
-            return db[ident]
+            return db[ident] #从数据库中获取 ident 键对应的记录。
         except TypeError:
             if db is None:
                 msg = "database not set; call '{}.set_db(my_db)'"
@@ -62,7 +59,7 @@ class Event(DbRecord):
     @property
     def venue(self):
         key = 'venue.{}'.format(self.venue_serial)
-        return self.__class__.fetch(key)
+        return self.__class__.fetch(key)   #避免数据中有fetch字段
 
     @property
     def speaker(self):
