@@ -53,7 +53,6 @@ class Managed:
 
     def spam(self):
         print('-> Managed.spam({})'.format(display(self)))
-
 if __name__ == '__main__':
     obj = Managed()
     obj.over
